@@ -4,4 +4,4 @@ Busca opções de entrega disponiveis!
 
 compativel com 2.1.x e 2.2.x.
 
-![img](https://user-images.githubusercontent.com/19245366/36951275-9aadbd38-1fe0-11e8-807c-0702da11dd23.PNG)
+![ex](https://user-images.githubusercontent.com/19245366/36951887-8152018a-1fe7-11e8-984e-18e76d183097.gif)
