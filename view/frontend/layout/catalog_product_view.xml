@@ -1,0 +1,13 @@
+<!--
+/**
+ * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author Jamacio Rocha <jamacio@iw3.com.br> <@jamacio>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.extrahint">
+            <block class="Magento\Framework\View\Element\Template" name="iw3_buscarcep.frete" after="product.info.social" template="IW3_Buscarcep::frete.phtml" />
+         </referenceContainer>
+    </body>
+</page>

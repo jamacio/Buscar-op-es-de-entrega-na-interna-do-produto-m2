@@ -1,0 +1,48 @@
+<?php
+/**
+ * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author Jamacio Rocha <jamacio@iw3.com.br> <@jamacio>
+ */?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currentStore = $storeManager->getStore();
+?>
+
+<div class="form-search-cep">
+   <h4><?=__('Consult Freight Value')?></h4>
+    <input id="buscar-tipo-entrega" onkeyup="mascara(this, mnum);">
+    <a href="javascript:buscarInfo()"><?=__('Search')?></a>
+    <div id="retorno-tipo-entrega"> </div>
+    <div id="load-iw3" style="display: none">
+        <img src="<?php echo $this->getViewFileUrl('IW3_Buscarcep::images/load.gif'); ?>" />
+    </div>
+</div>
+<script>
+    function buscarInfo(cep) {
+        document.getElementById('load-iw3').style.display = 'Block';
+       var cep = document.getElementById('buscar-tipo-entrega').value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('load-iw3').style.display = 'none';
+                document.getElementById('retorno-tipo-entrega').innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "<?=$currentStore->getBaseUrl()?>iw3_buscarcep?product=<?=$product->getId()?>&cep="+cep+"&_="+Date.now() , true);
+        xmlhttp.send();
+    }
+    function mascara(o,f){
+        v_obj=o;
+        v_fun=f;
+        setTimeout("execmascara()",1)
+    }
+    function execmascara(){
+        v_obj.value=v_fun(v_obj.value)
+    }
+    function mnum(v){
+        v=v.replace(/\D/g,"");
+        return v;
+    }
+</script>

@@ -1,0 +1,48 @@
+<?php
+/**
+ * @license http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author Jamacio Rocha <jamacio@iw3.com.br> <@jamacio>
+ */?>
+<?php
+
+
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+//    $modelRegion = $objectManager->create('Magento\Directory\Model\Region');
+    $quote = $objectManager->create('Magento\Quote\Model\Quote');
+    $request = $objectManager->create('Magento\Framework\App\Request\Http');
+    $product = $objectManager->create('Magento\Catalog\Model\Product');
+    $totalsCollector = $objectManager->create('Magento\Quote\Model\Quote\TotalsCollector');
+    $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+
+    $request = $request->getParams();
+
+    $params = new \Magento\Framework\DataObject();
+    $params->setData($request);
+
+    $product->load($request['product']);
+
+
+    $quote->addProduct($product, $params);
+
+    $quote->collectTotals();
+    $shipping = $quote->getShippingAddress();
+    $shipping->setCountryId('BR');
+    $shipping->setPostcode($request['cep']);
+    $shipping->setCollectShippingRates(true);
+    $totalsCollector->collectAddressTotals($quote, $shipping);
+    $rates = $shipping->collectShippingRates()->getAllShippingRates();
+    $html = '';
+    if(count($rates)){
+        $html .= '<ul>';
+        foreach ($rates as $rate) {
+            $titulo = $rate->getMethodTitle();
+            $valor = $priceHelper->currency($rate->getPrice(), true, false);
+            $html .= '<li><span class="titulo">'.$titulo.'</span><span class="valor">'.$valor.'</span></li>';
+        }
+        $html .= '</ul>';
+    }else{
+        $html = __('Não foi possivel calcular frete.');
+    }
+echo $html;
+?>

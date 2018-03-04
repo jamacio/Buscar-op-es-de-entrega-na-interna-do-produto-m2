@@ -1,0 +1,44 @@
+.form-search-cep {
+    width: 360px;
+    border: 1px dashed;
+    padding: 17px 55px;
+    display: block;
+    float: left;
+    border-radius: 15px;
+}
+.form-search-cep a {
+    padding: 3px 5px;
+    background-color: #093a74;
+    color: #fff;
+    text-decoration: none !important;
+}
+input#buscar-tipo-entrega {
+    padding: 0 5px;
+}
+div#retorno-tipo-entrega span.titulo {
+    margin: 0 20px;
+}
+div#retorno-tipo-entrega li {
+    border-bottom: 1px solid;
+    margin-top: 10px;
+}
+div#retorno-tipo-entrega span.valor {
+    float: right;
+    margin: 0 20px;
+}
+.form-search-cep h4 {
+    text-align: center;
+    font-size: 17px;
+}
+div#load-iw3 img {
+    width: 33px;
+    margin: 10px auto;
+    display: flex;
+}
+
+@media (max-width: 500px) {
+    .form-search-cep {
+        width: 277px;
+        padding: 17px 15px;
+    }
+}
