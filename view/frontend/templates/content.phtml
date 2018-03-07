@@ -14,6 +14,8 @@
     $product = $objectManager->create('Magento\Catalog\Model\Product');
     $totalsCollector = $objectManager->create('Magento\Quote\Model\Quote\TotalsCollector');
     $priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data');
+    $checkoutSession = $objectManager->create('Magento\Checkout\Model\Session');
+    $shippingModel = $objectManager->create('Magento\Shipping\Model\Shipping');
 
     $request = $request->getParams();
 
@@ -42,7 +44,7 @@
         }
         $html .= '</ul>';
     }else{
-        $html = __('Não foi possivel calcular frete.');
+        $html = __('NÃ£o foi possivel calcular frete.');
     }
 echo $html;
 ?>
