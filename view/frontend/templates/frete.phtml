@@ -8,6 +8,16 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
 $storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface');
 $currentStore = $storeManager->getStore();
+
+$idProduto = $product->getId();
+if($product->getTypeId() == 'configurable') {
+    $productTypeInstance = $product->getTypeInstance();
+    $usedProducts = $productTypeInstance->getUsedProducts($product);
+    foreach ($usedProducts as $child) {
+        $idProduto =  $child->getId();
+        break;
+    }
+}
 ?>
 
 <div class="form-search-cep">
@@ -30,7 +40,7 @@ $currentStore = $storeManager->getStore();
                 document.getElementById('retorno-tipo-entrega').innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "<?=$currentStore->getBaseUrl()?>iw3_buscarcep?product=<?=$product->getId()?>&cep="+cep+"&_="+Date.now() , true);
+        xmlhttp.open("GET", "<?=$currentStore->getBaseUrl()?>iw3_buscarcep?product=<?=$idProduto?>&cep="+cep+"&_="+Date.now() , true);
         xmlhttp.send();
     }
     function mascara(o,f){
